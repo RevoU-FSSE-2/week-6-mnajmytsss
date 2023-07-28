@@ -36,46 +36,55 @@ To understand Docker concepts and able to containerize a Node.js application eff
 
 3. Create `package.json` file on the same working directory
 
-{
-"main": "app.js",
-
-"scripts": {
-
-"start": "node app.js"
-
-},
-
-"dependencies": {
-
-"express": "^4.18.2"
-}
+> {
+> "main": "app.js",
+>
+> "scripts": {
+>
+> "start": "node app.js"
+>
+> },
+>
+> "dependencies": {
+>
+> "express": "^4.18.2"
+>}}
 
 #### Dockerizing
 
 1. Create `Dockerfile` on your node project directory
 
-{
-#Use the official node Image as the base images
-FROM node:18.17.0
+> {
+> #Use the official node Image as the base images
+> 
+> FROM node:18.17.0
+> 
+> #set the working directory inside the container
+> 
+> WORKDIR /usr/app
+>
+> #copy all the package.json in to the contianer
+> #run node inside the container
+> 
+> COPY package*.json ./
+> RUN npm install --silent
+>
+> #copy all file inside the container
+> 
+> COPY . ./
+>
+> #expose the port that the application listen on
+> 
+> EXPOSE 3002
+>
+> #command to run the node application
+> 
+>CMD [ "node", "app.js" ]
+>
+> }
 
-#set the working directory inside the container
-WORKDIR /usr/app
-
-#copy all the package.json in to the contianer
-#run node inside the container
-COPY package*.json ./
-RUN npm install --silent
-
-#copy all file inside the container
-COPY . ./
-
-#expose the port that the application listen on
-EXPOSE 3002
-
-#command to run the node application
-CMD [ "node", "app.js" ]
-
-}
+                               ⬆️
+                      #remove the comment
 
 2. Open terminal on the same project directory.
    
