@@ -23,8 +23,6 @@ To understand Docker concepts and able to containerize a Node.js application eff
 4. And finally to make sure your docker is installed properly, you can check on your terminal by using the command `docker -v`
    
    ![assets/dockerVersion.png](assets/dockerVersion.png)
-   
-   
 
 #### Create a Node.js Project
 
@@ -37,47 +35,47 @@ To understand Docker concepts and able to containerize a Node.js application eff
    ![assets/cloneCode1.png](assets/cloneCode1.png)
 
 3. Create `package.json` file on the same working directory
-   
-> {
-> "main": "app.js",
->
-> "scripts": {
->
-> "start": "node app.js"
->
-> },
->
-> "dependencies": {
->
-> "express": "^4.18.2"
-> }
-> }
+
+{
+"main": "app.js",
+
+"scripts": {
+
+"start": "node app.js"
+
+},
+
+"dependencies": {
+
+"express": "^4.18.2"
+}
 
 #### Dockerizing
 
 1. Create `Dockerfile` on your node project directory
-   
-> {
-> #Use the official node Image as the base images
-> FROM node:18.17.0
->
-> #set the working directory inside the container
-> WORKDIR /usr/app
->
-> #copy all the package.json in to the contianer
-> #run node inside the container
-> COPY package*.json ./
-> RUN npm install --silent
->
-> #copy all file inside the container
-> COPY . ./
->
-> #expose the port that the application listen on
-> EXPOSE 3002
->
-> #command to run the node application
-> CMD [ "node", "app.js" ]
-> }
+
+{
+#Use the official node Image as the base images
+FROM node:18.17.0
+
+#set the working directory inside the container
+WORKDIR /usr/app
+
+#copy all the package.json in to the contianer
+#run node inside the container
+COPY package*.json ./
+RUN npm install --silent
+
+#copy all file inside the container
+COPY . ./
+
+#expose the port that the application listen on
+EXPOSE 3002
+
+#command to run the node application
+CMD [ "node", "app.js" ]
+
+}
 
 2. Open terminal on the same project directory.
    
@@ -86,7 +84,17 @@ To understand Docker concepts and able to containerize a Node.js application eff
    for example i named it as `appnajmy` and then click enter, wait until the build process finish.
    
    ![assets/build.png](assets/build.png)
+
+3. Then you can check the images that you have created by typing in the terminal `docker images` 
    
+   ![images.png](assets/images.png)
+
+4. Then after that you can see the docker images that you have made listed in the terminal, and do a copy paste on the image id
+
+5. then you can start running docker images that you have created by typing `docker run -p 3002:3002 "image id that you have copied, paste it here"` wait for the running process to finish
    
+   ![running.png](assets/running.png)
+
+6. after the running process is complete, you can check in the browser whether your node.js project is already running in the browser by typing `localhost:"port that you have input in the dockerfile"`
    
-   
+   ![hasil.png](assets/hasil.png)
